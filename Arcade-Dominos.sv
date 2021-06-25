@@ -240,10 +240,10 @@ dominos dominos(
 	.Audio_O(audio1),
 
 	// ????
-	.Coin1_I(~(m_start1)),
-	.Coin2_I(~(m_start2)),
-	.Start1_I(~m_coin1),
-	.Start2_I(~m_coin2),
+	.Coin1_I(~(m_coin1)),
+	.Coin2_I(~(m_coin2)),
+	.Start1_I(~m_start1),
+	.Start2_I(~m_start2),
 
 	.Up1(~m_up1),
 	.Down1(~m_down1),
