@@ -214,10 +214,10 @@ wire  [15:0] db9_remap_din;
 // [MiSTer-DB9 END]
 // [MiSTer-DB9 BEGIN] - DB9 remap factory default (used until Main_MiSTer streams UIO 0xFD)
 // Derived from CONF_STR J1, same rule as db9_map.cpp; lets the core work on a stock MiSTer binary.
-// DB15:  Start=START, Start 1P=-, Start 2P=D, Coin=SELECT
-// DB9MD: Start=START, Start 1P=-, Start 2P=X, Coin=MODE
-wire  [35:0] db9_remap_default_db15  = 36'hFFFFFB7FA;
-wire  [35:0] db9_remap_default_db9md = 36'hFFFFFB7FA;
+// DB15:  Coin=SELECT, Start 1P=START, Start 2P=D
+// DB9MD: Coin=MODE, Start 1P=START, Start 2P=X
+wire  [35:0] db9_remap_default_db15  = 36'hFFFFFF7AB;
+wire  [35:0] db9_remap_default_db9md = 36'hFFFFFF7AB;
 // [MiSTer-DB9 END]
 joydb joydb (
   .clk             ( CLK_JOY         ),
@@ -278,7 +278,10 @@ localparam CONF_STR = {
 	"OD,Test,Off,On;",
 	"-;",
 	"R0,Reset;",
-	"J1,Start,Start 1P,Start 2P,Coin;",
+	// [MiSTer-DB9 BEGIN] - J1 labels match the bits the core reads (joy0[4]=coin,
+	// [5]=start1, [6]=start2); the DB9 remap default is derived from these names
+	"J1,Coin,Start 1P,Start 2P;",
+	// [MiSTer-DB9 END]
         "jn,Start,Select,R;",
 	"V,v",`BUILD_DATE
 };
